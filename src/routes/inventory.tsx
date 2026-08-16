@@ -406,7 +406,7 @@ function ProductForm({ onSubmit }: { onSubmit: (p: Partial<Product> & { name: st
           onClick={() =>
             onSubmit({
               name: form.name.trim(),
-              sku: form.sku.trim() || undefined,
+              ...(form.sku.trim() ? { sku: form.sku.trim() } : {}),
               categoryId: form.categoryId,
               supplierId: form.supplierId,
               unitPrice: Number(form.unitPrice),
