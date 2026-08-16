@@ -10,33 +10,180 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as DispatchRouteImport } from './routes/dispatch'
+import { Route as ExceptionsRouteImport } from './routes/exceptions'
+import { Route as InventoryRouteImport } from './routes/inventory'
+import { Route as PackingRouteImport } from './routes/packing'
+import { Route as PickingRouteImport } from './routes/picking'
+import { Route as QualityRouteImport } from './routes/quality'
+import { Route as ReorderRouteImport } from './routes/reorder'
+import { Route as SmartDecisionsRouteImport } from './routes/smart-decisions'
+import { Route as OrdersIndexRouteImport } from './routes/orders.index'
+import { Route as OrdersOrderIdRouteImport } from './routes/orders.$orderId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DispatchRoute = DispatchRouteImport.update({
+  id: '/dispatch',
+  path: '/dispatch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExceptionsRoute = ExceptionsRouteImport.update({
+  id: '/exceptions',
+  path: '/exceptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InventoryRoute = InventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PackingRoute = PackingRouteImport.update({
+  id: '/packing',
+  path: '/packing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PickingRoute = PickingRouteImport.update({
+  id: '/picking',
+  path: '/picking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QualityRoute = QualityRouteImport.update({
+  id: '/quality',
+  path: '/quality',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReorderRoute = ReorderRouteImport.update({
+  id: '/reorder',
+  path: '/reorder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SmartDecisionsRoute = SmartDecisionsRouteImport.update({
+  id: '/smart-decisions',
+  path: '/smart-decisions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersIndexRoute = OrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrdersOrderIdRoute = OrdersOrderIdRouteImport.update({
+  id: '/orders/$orderId',
+  path: '/orders/$orderId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/dispatch': typeof DispatchRoute
+  '/exceptions': typeof ExceptionsRoute
+  '/inventory': typeof InventoryRoute
+  '/packing': typeof PackingRoute
+  '/picking': typeof PickingRoute
+  '/quality': typeof QualityRoute
+  '/reorder': typeof ReorderRoute
+  '/smart-decisions': typeof SmartDecisionsRoute
+  '/orders/$orderId': typeof OrdersOrderIdRoute
+  '/orders/': typeof OrdersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/dispatch': typeof DispatchRoute
+  '/exceptions': typeof ExceptionsRoute
+  '/inventory': typeof InventoryRoute
+  '/packing': typeof PackingRoute
+  '/picking': typeof PickingRoute
+  '/quality': typeof QualityRoute
+  '/reorder': typeof ReorderRoute
+  '/smart-decisions': typeof SmartDecisionsRoute
+  '/orders/$orderId': typeof OrdersOrderIdRoute
+  '/orders': typeof OrdersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
+  '/dispatch': typeof DispatchRoute
+  '/exceptions': typeof ExceptionsRoute
+  '/inventory': typeof InventoryRoute
+  '/packing': typeof PackingRoute
+  '/picking': typeof PickingRoute
+  '/quality': typeof QualityRoute
+  '/reorder': typeof ReorderRoute
+  '/smart-decisions': typeof SmartDecisionsRoute
+  '/orders/$orderId': typeof OrdersOrderIdRoute
+  '/orders/': typeof OrdersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/dispatch'
+    | '/exceptions'
+    | '/inventory'
+    | '/packing'
+    | '/picking'
+    | '/quality'
+    | '/reorder'
+    | '/smart-decisions'
+    | '/orders/$orderId'
+    | '/orders/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/analytics'
+    | '/dispatch'
+    | '/exceptions'
+    | '/inventory'
+    | '/packing'
+    | '/picking'
+    | '/quality'
+    | '/reorder'
+    | '/smart-decisions'
+    | '/orders/$orderId'
+    | '/orders'
+  id:
+    | '__root__'
+    | '/'
+    | '/analytics'
+    | '/dispatch'
+    | '/exceptions'
+    | '/inventory'
+    | '/packing'
+    | '/picking'
+    | '/quality'
+    | '/reorder'
+    | '/smart-decisions'
+    | '/orders/$orderId'
+    | '/orders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  DispatchRoute: typeof DispatchRoute
+  ExceptionsRoute: typeof ExceptionsRoute
+  InventoryRoute: typeof InventoryRoute
+  PackingRoute: typeof PackingRoute
+  PickingRoute: typeof PickingRoute
+  QualityRoute: typeof QualityRoute
+  ReorderRoute: typeof ReorderRoute
+  SmartDecisionsRoute: typeof SmartDecisionsRoute
+  OrdersOrderIdRoute: typeof OrdersOrderIdRoute
+  OrdersIndexRoute: typeof OrdersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +195,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dispatch': {
+      id: '/dispatch'
+      path: '/dispatch'
+      fullPath: '/dispatch'
+      preLoaderRoute: typeof DispatchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exceptions': {
+      id: '/exceptions'
+      path: '/exceptions'
+      fullPath: '/exceptions'
+      preLoaderRoute: typeof ExceptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inventory': {
+      id: '/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof InventoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packing': {
+      id: '/packing'
+      path: '/packing'
+      fullPath: '/packing'
+      preLoaderRoute: typeof PackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/picking': {
+      id: '/picking'
+      path: '/picking'
+      fullPath: '/picking'
+      preLoaderRoute: typeof PickingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quality': {
+      id: '/quality'
+      path: '/quality'
+      fullPath: '/quality'
+      preLoaderRoute: typeof QualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reorder': {
+      id: '/reorder'
+      path: '/reorder'
+      fullPath: '/reorder'
+      preLoaderRoute: typeof ReorderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/smart-decisions': {
+      id: '/smart-decisions'
+      path: '/smart-decisions'
+      fullPath: '/smart-decisions'
+      preLoaderRoute: typeof SmartDecisionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orders/': {
+      id: '/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof OrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/orders/$orderId': {
+      id: '/orders/$orderId'
+      path: '/orders/$orderId'
+      fullPath: '/orders/$orderId'
+      preLoaderRoute: typeof OrdersOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  DispatchRoute: DispatchRoute,
+  ExceptionsRoute: ExceptionsRoute,
+  InventoryRoute: InventoryRoute,
+  PackingRoute: PackingRoute,
+  PickingRoute: PickingRoute,
+  QualityRoute: QualityRoute,
+  ReorderRoute: ReorderRoute,
+  SmartDecisionsRoute: SmartDecisionsRoute,
+  OrdersOrderIdRoute: OrdersOrderIdRoute,
+  OrdersIndexRoute: OrdersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
