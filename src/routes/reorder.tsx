@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { RoleGate } from "@/components/wms/app-shell";
 import { Button } from "@/components/ui/button";
-import { OrderStatusBadge, PriorityBadge, SeverityBadge } from "@/components/wms/badges";
+import { Pill } from "@/components/wms/badges";
 import { EmptyState, KpiCard, PageHeader, SectionCard } from "@/components/wms/bits";
 import { fmtDateTime, money } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
@@ -30,7 +30,7 @@ function ReorderPage() {
     <>
       <PageHeader title="Reorder Requests" subtitle="Replenishment suggestions raised from reorder-point breaches, awaiting manager approval." />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <KpiCard label="Pending" value={state.reorders.filter((r) => r.status === "PENDING").length} tone="warning" />
+        <KpiCard label="Recommended" value={state.reorders.filter((r) => r.status === "RECOMMENDED").length} tone="warning" />
         <KpiCard label="Approved" value={state.reorders.filter((r) => r.status === "APPROVED").length} tone="success" />
         <KpiCard label="Ordered" value={state.reorders.filter((r) => r.status === "ORDERED").length} tone="info" />
         <KpiCard label="Rejected" value={state.reorders.filter((r) => r.status === "REJECTED").length} />
@@ -50,7 +50,7 @@ function ReorderPage() {
                       {r.quantity} units · {money((p?.unitPrice ?? 0) * r.quantity)} · {r.status} · raised {fmtDateTime(r.createdAt)}
                     </p>
                   </div>
-                  {r.status === "PENDING" ? (
+                  {r.status === "RECOMMENDED" ? (
                     <div className="flex gap-2">
                       <Button size="sm" onClick={() => setReorderStatus(r.id, "APPROVED")}>Approve</Button>
                       <Button size="sm" variant="outline" onClick={() => setReorderStatus(r.id, "REJECTED")}>Reject</Button>

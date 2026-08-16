@@ -34,10 +34,10 @@ function AnalyticsPage() {
     <>
       <PageHeader title="Performance Analytics" subtitle="Throughput, stage timings and fulfilment quality across the whole warehouse." />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <KpiCard label="Orders delivered" value={k.delivered} tone="success" />
-        <KpiCard label="On-time rate" value={`${k.onTimeRate}%`} tone={k.onTimeRate >= 90 ? "success" : "warning"} />
-        <KpiCard label="Avg fulfilment" value={`${k.avgFulfilmentHours} h`} tone="info" />
-        <KpiCard label="Fulfilment value" value={money(k.openOrderValue)} />
+        <KpiCard label="Orders completed" value={k.completed} tone="success" />
+        <KpiCard label="Fulfilment rate" value={`${k.fulfillmentRate}%`} tone={k.fulfillmentRate >= 60 ? "success" : "warning"} />
+        <KpiCard label="Avg fulfilment" value={`${k.avgFulfillmentHours} h`} tone="info" />
+        <KpiCard label="Inventory value" value={money(k.inventoryValue)} />
       </div>
       <SectionCard className="mt-4" title="Stage throughput" description="Orders waiting at each stage against its target dwell time.">
         <div className="space-y-3">
@@ -45,9 +45,9 @@ function AnalyticsPage() {
             <div key={s.stage}>
               <div className="flex items-center justify-between text-sm">
                 <span className="font-medium">{s.label}</span>
-                <span className="tabular text-muted-foreground">{s.count} orders · avg {s.avgHours} h (target {s.target} h)</span>
+                <span className="tabular text-muted-foreground">{s.waiting} waiting · avg {s.avgMinutes} min (target {s.target} min)</span>
               </div>
-              <ProgressBar value={Math.min(100, (s.avgHours / Math.max(1, s.target)) * 100)} tone={s.avgHours > s.target ? "danger" : "success"} />
+              <ProgressBar value={s.loadPct} tone={s.bottleneck ? "danger" : "success"} />
             </div>
           ))}
         </div>

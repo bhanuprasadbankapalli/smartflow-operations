@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { RoleGate } from "@/components/wms/app-shell";
 import { Button } from "@/components/ui/button";
-import { OrderStatusBadge, PriorityBadge, SeverityBadge } from "@/components/wms/badges";
+import { PriorityBadge, TaskStatusBadge } from "@/components/wms/badges";
 import { EmptyState, KpiCard, PageHeader, SectionCard } from "@/components/wms/bits";
-import { fmtDateTime, money } from "@/lib/wms/engine";
+import { money } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
 
 export const Route = createFileRoute("/dispatch")({
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/dispatch")({
 
 function DispatchPage() {
   const { state, dispatchOrder, advanceShipment } = useWms();
-  const ready = state.orders.filter((o) => o.status === "READY_TO_DISPATCH");
+  const ready = state.orders.filter((o) => o.status === "READY_FOR_DISPATCH");
 
   return (
     <>
@@ -33,7 +33,7 @@ function DispatchPage() {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <KpiCard label="Ready to dispatch" value={ready.length} tone="warning" />
         <KpiCard label="In transit" value={state.shipments.filter((s) => s.status === "IN_TRANSIT").length} tone="info" />
-        <KpiCard label="Out for delivery" value={state.shipments.filter((s) => s.status === "OUT_FOR_DELIVERY").length} tone="info" />
+        <KpiCard label="Dispatched" value={state.shipments.filter((s) => s.status === "DISPATCHED").length} tone="info" />
         <KpiCard label="Delivered" value={state.shipments.filter((s) => s.status === "DELIVERED").length} tone="success" />
       </div>
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
@@ -67,11 +67,11 @@ function DispatchPage() {
               {state.shipments.slice(0, 12).map((s) => (
                 <div key={s.id} className="flex items-center justify-between gap-2 rounded-md border border-border p-3">
                   <div>
-                    <p className="text-sm font-semibold">{s.trackingNumber}</p>
-                    <p className="text-[11px] text-muted-foreground">{s.courier} · {s.orderId} · ETA {fmtDateTime(s.eta)}</p>
+                    <p className="text-sm font-semibold">{s.trackingId}</p>
+                    <p className="text-[11px] text-muted-foreground">{s.courier} · {s.orderId} · {s.destination}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <OrderStatusBadge status={s.status === "DELIVERED" ? "DELIVERED" : "IN_TRANSIT"} />
+                    <TaskStatusBadge status={s.status} />
                     {s.status !== "DELIVERED" && (
                       <Button size="sm" variant="outline" onClick={() => advanceShipment(s.id)}>Advance</Button>
                     )}

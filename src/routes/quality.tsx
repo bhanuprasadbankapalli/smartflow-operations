@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { RoleGate } from "@/components/wms/app-shell";
 import { Button } from "@/components/ui/button";
-import { OrderStatusBadge, PriorityBadge, SeverityBadge } from "@/components/wms/badges";
+import { PriorityBadge } from "@/components/wms/badges";
 import { EmptyState, KpiCard, PageHeader, SectionCard } from "@/components/wms/bits";
-import { fmtDateTime, money } from "@/lib/wms/engine";
+import { orderItemsOf } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
 
 export const Route = createFileRoute("/quality")({
@@ -34,8 +34,8 @@ function QualityPage() {
       <PageHeader title="Quality Control" subtitle="Inspect packed orders before dispatch. A failed check raises an exception automatically." />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <KpiCard label="Awaiting inspection" value={pending.length} />
-        <KpiCard label="Passed" value={checks.filter((c) => c.result === "PASS").length} tone="success" />
-        <KpiCard label="Failed" value={checks.filter((c) => c.result === "FAIL").length} tone="danger" />
+        <KpiCard label="Passed" value={checks.filter((c) => c.result === "PASSED").length} tone="success" />
+        <KpiCard label="Failed" value={checks.filter((c) => c.result === "FAILED").length} tone="danger" />
         <KpiCard label="Checks logged" value={checks.length} tone="info" />
       </div>
       <SectionCard className="mt-4" title={`Inspection queue (${pending.length})`}>

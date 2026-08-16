@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { RoleGate } from "@/components/wms/app-shell";
 import { Button } from "@/components/ui/button";
-import { OrderStatusBadge, PriorityBadge, SeverityBadge } from "@/components/wms/badges";
+import { SeverityBadge } from "@/components/wms/badges";
 import { EmptyState, KpiCard, PageHeader, SectionCard } from "@/components/wms/bits";
-import { fmtDateTime, money } from "@/lib/wms/engine";
+import { fmtDateTime } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
 
 export const Route = createFileRoute("/exceptions")({
@@ -45,8 +45,8 @@ function ExceptionsPage() {
               <div key={e.id} className="rounded-md border border-border p-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <p className="text-sm font-semibold">{e.title}</p>
-                    <p className="text-xs text-muted-foreground">{e.detail}</p>
+                    <p className="text-sm font-semibold">{e.type.replaceAll("_", " ")}</p>
+                    <p className="text-xs text-muted-foreground">{e.description}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <SeverityBadge severity={e.severity} />
@@ -56,7 +56,7 @@ function ExceptionsPage() {
                   </div>
                 </div>
                 <p className="mt-2 text-xs text-muted-foreground">
-                  <span className="font-medium text-foreground">Recommended action:</span> {e.recommendation} · logged {fmtDateTime(e.createdAt)}
+                  <span className="font-medium text-foreground">Recommended action:</span> {e.recommendedAction} · detected {fmtDateTime(e.detectedAt)}
                 </p>
               </div>
             ))}

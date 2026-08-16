@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { RoleGate } from "@/components/wms/app-shell";
 import { Button } from "@/components/ui/button";
-import { OrderStatusBadge, PriorityBadge, SeverityBadge } from "@/components/wms/badges";
+import { SeverityBadge } from "@/components/wms/badges";
 import { EmptyState, KpiCard, PageHeader, SectionCard } from "@/components/wms/bits";
-import { fmtDateTime, money } from "@/lib/wms/engine";
+import { kpis } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
 import { buildRecommendations, primaryBottleneck } from "@/lib/wms/engine";
 
