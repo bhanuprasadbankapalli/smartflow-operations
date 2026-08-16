@@ -58,7 +58,6 @@ function SmartDecisionsPage() {
                   <p className="text-sm font-semibold">{r.title}</p>
                   <SeverityBadge severity={r.severity} />
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">{r.detail}</p>
                 <p className="mt-2 text-xs"><span className="font-medium">Why:</span> {r.reason}</p>
                 <p className="mt-1 text-xs"><span className="font-medium">Action:</span> {r.action}</p>
               </div>
