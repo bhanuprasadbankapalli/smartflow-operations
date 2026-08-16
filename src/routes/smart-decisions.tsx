@@ -6,7 +6,8 @@ import { OrderStatusBadge, PriorityBadge, SeverityBadge } from "@/components/wms
 import { EmptyState, KpiCard, PageHeader, SectionCard } from "@/components/wms/bits";
 import { fmtDateTime, money } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
-import { buildRecommendations, primaryBottleneck } from "@/lib/wms/engine";\n
+import { buildRecommendations, primaryBottleneck } from "@/lib/wms/engine";
+
 export const Route = createFileRoute("/smart-decisions")({
   head: () => ({
     meta: [

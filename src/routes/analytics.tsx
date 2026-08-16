@@ -6,7 +6,9 @@ import { OrderStatusBadge, PriorityBadge, SeverityBadge } from "@/components/wms
 import { EmptyState, KpiCard, PageHeader, SectionCard } from "@/components/wms/bits";
 import { fmtDateTime, money } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
-import { kpis, stageMetrics } from "@/lib/wms/engine";\nimport { ProgressBar } from "@/components/wms/bits";\n
+import { kpis, stageMetrics } from "@/lib/wms/engine";
+import { ProgressBar } from "@/components/wms/bits";
+
 export const Route = createFileRoute("/analytics")({
   head: () => ({
     meta: [
