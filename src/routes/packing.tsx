@@ -31,10 +31,10 @@ function PackingPage() {
     <>
       <PageHeader title="Packing Station" subtitle="Confirm each picked line, then pack the order and hand it to quality control." />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <KpiCard label="Awaiting packing" value={tasks.filter((t) => t.status === "PENDING").length} />
+        <KpiCard label="Awaiting packing" value={tasks.filter((t) => t.status === "WAITING").length} />
         <KpiCard label="Packing now" value={tasks.filter((t) => t.status === "IN_PROGRESS").length} tone="info" />
         <KpiCard label="Packed today" value={state.packingTasks.filter((t) => t.status === "COMPLETED").length} tone="success" />
-        <KpiCard label="Discrepancies" value={tasks.filter((t) => t.status === "ISSUE").length} tone="danger" />
+        <KpiCard label="Discrepancies" value={tasks.filter((t) => t.status === "BLOCKED").length} tone="danger" />
       </div>
 
       <SectionCard className="mt-4" title={`Packing queue (${tasks.length})`}>
@@ -50,8 +50,8 @@ function PackingPage() {
                 <div key={t.id} className="panel p-4">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="text-base font-bold">{order.reference}</p>
-                      <p className="text-xs text-muted-foreground">{order.customerName}</p>
+                      <p className="text-base font-bold">{order.id}</p>
+                      <p className="text-xs text-muted-foreground">{state.customers.find((c) => c.id === order.customerId)?.name}</p>
                     </div>
                     <div className="flex flex-col items-end gap-1">
                       <TaskStatusBadge status={t.status} />
@@ -63,13 +63,13 @@ function PackingPage() {
                       <li key={it.id} className="flex justify-between text-sm">
                         <span>{state.products.find((p) => p.id === it.productId)?.name}</span>
                         <span className="tabular text-muted-foreground">
-                          {it.pickedQty}/{it.quantity}
+                          {it.picked}/{it.quantity}
                         </span>
                       </li>
                     ))}
                   </ul>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {t.status === "PENDING" ? (
+                    {t.status === "WAITING" ? (
                       <Button size="sm" onClick={() => startPacking(order.id)}>Start packing</Button>
                     ) : (
                       <Button size="sm" onClick={() => completePacking(order.id)}>Mark packed</Button>
