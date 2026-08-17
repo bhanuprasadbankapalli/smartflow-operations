@@ -30,7 +30,10 @@ function rng(seed: number) {
   };
 }
 
-const r = rng(20260816);
+let r = rng(20260816);
+const resetRng = () => {
+  r = rng(20260816);
+};
 const pick = <T,>(arr: T[]) => arr[Math.floor(r() * arr.length)]!;
 const int = (min: number, max: number) => Math.floor(r() * (max - min + 1)) + min;
 
@@ -160,6 +163,7 @@ const STAGE_MINUTES: Partial<Record<OrderStatus, [number, number]>> = {
 };
 
 export function createSeedState(): WmsState {
+  resetRng();
   const now = BASE_TIME;
 
   const products: Product[] = PRODUCT_DEFS.map(([name, categoryId, supplierId, unitPrice, weightKg], i) => {
