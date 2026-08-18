@@ -202,7 +202,7 @@ function Dashboard() {
               </span>
             </div>
             <h1 className="mt-3 text-2xl font-bold tracking-tight text-sidebar-accent-foreground sm:text-[2rem]">
-              {greeting}, {actor.split(" ")[0]}
+              {greeting}, Bhanu Prasad
             </h1>
             <p className="mt-1.5 max-w-xl text-sm text-sidebar-foreground/70">
               {inFlight} orders are moving through the line right now.{" "}
