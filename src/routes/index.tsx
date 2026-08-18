@@ -217,7 +217,7 @@ function Dashboard() {
                 Live shift
               </Pill>
               <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sidebar-foreground/60">
-                {fmtDateTime(state.clock)} UTC
+                <span className="tabular">{liveStamp}</span>
               </span>
             </div>
             <h1 className="mt-3 text-2xl font-bold tracking-tight text-sidebar-accent-foreground sm:text-[2rem]">
