@@ -70,6 +70,13 @@ const WmsContext = createContext<Ctx | null>(null);
 export function WmsProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<WmsState>(() => createSeedState());
   const [role, setRole] = useState<Role>("manager");
+  const [signedIn, setSignedIn] = useState(false);
+
+  const signIn = useCallback((r?: Role) => {
+    if (r) setRole(r);
+    setSignedIn(true);
+  }, []);
+  const signOut = useCallback(() => setSignedIn(false), []);
 
   const actor = useMemo(() => {
     const u = state.users.find((x) => x.role === role);
