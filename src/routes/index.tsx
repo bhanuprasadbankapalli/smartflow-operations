@@ -123,11 +123,19 @@ function Dashboard() {
   const { state, role, actor, runSmartAllocation, runPrioritization, runDemoScenario } = useWms();
   const [ready, setReady] = useState(false);
   const [flowView, setFlowView] = useState<"volume" | "throughput">("volume");
+  const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
     const id = setTimeout(() => setReady(true), 220);
     return () => clearTimeout(id);
   }, []);
+
+  useEffect(() => {
+    setNow(Date.now());
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
 
   const k = kpis(state);
   const metrics = stageMetrics(state);
@@ -163,8 +171,19 @@ function Dashboard() {
 
   const openExceptions = state.exceptions.filter((e) => e.status !== "RESOLVED").slice(0, 3);
   const inFlight = k.picking + k.packing + k.qc + k.readyForDispatch;
-  const hour = new Date(state.clock).getUTCHours();
+  const displayNow = now ?? state.clock;
+
+  const hour = new Date(displayNow).getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  const liveStamp = new Date(displayNow).toLocaleString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
 
   const flowStages = [
     { label: "Pending", value: k.pending, icon: Clock, to: "/orders", tone: "info" as const },
@@ -198,7 +217,7 @@ function Dashboard() {
                 Live shift
               </Pill>
               <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sidebar-foreground/60">
-                {fmtDateTime(state.clock)} UTC
+                <span className="tabular">{liveStamp}</span>
               </span>
             </div>
             <h1 className="mt-3 text-2xl font-bold tracking-tight text-sidebar-accent-foreground sm:text-[2rem]">
