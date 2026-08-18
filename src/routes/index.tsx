@@ -170,9 +170,18 @@ function Dashboard() {
   ];
 
   const openExceptions = state.exceptions.filter((e) => e.status !== "RESOLVED").slice(0, 3);
-  const inFlight = k.picking + k.packing + k.qc + k.readyForDispatch;
-  const hour = new Date(state.clock).getUTCHours();
+  const displayNow = now ?? state.clock;
+  const hour = new Date(displayNow).getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  const liveStamp = new Date(displayNow).toLocaleString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
 
   const flowStages = [
     { label: "Pending", value: k.pending, icon: Clock, to: "/orders", tone: "info" as const },
