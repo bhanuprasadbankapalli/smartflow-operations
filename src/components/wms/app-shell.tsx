@@ -28,6 +28,7 @@ import { fmtDateTime, kpis } from "@/lib/wms/engine";
 import { useWms } from "@/lib/wms/store";
 import type { Role } from "@/lib/wms/types";
 import { Pill, SeverityBadge } from "./badges";
+import { LoginScreen } from "./login-screen";
 
 interface NavItem {
   to: string;
@@ -165,9 +166,11 @@ function NotificationBell() {
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const { role, setRole, actor, state, runDemoScenario, resetDemo } = useWms();
+  const { role, setRole, actor, state, runDemoScenario, resetDemo, signedIn, signOut } = useWms();
   const [open, setOpen] = useState(false);
   const k = kpis(state);
+
+  if (!signedIn) return <LoginScreen />;
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -233,6 +236,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <p className="text-xs font-semibold">{actor}</p>
             <p className="text-[10px] uppercase tracking-wide text-muted-foreground">{ROLE_LABEL[role]}</p>
           </div>
+          <Button variant="outline" size="sm" onClick={signOut}>
+            Logout
+          </Button>
         </header>
 
         <main className="mx-auto w-full max-w-[1600px] flex-1 px-3 py-5 sm:px-5 lg:px-7">{children}</main>
