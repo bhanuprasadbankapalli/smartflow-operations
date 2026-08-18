@@ -36,6 +36,9 @@ interface Ctx {
   state: WmsState;
   role: Role;
   setRole: (r: Role) => void;
+  signedIn: boolean;
+  signIn: (r?: Role) => void;
+  signOut: () => void;
   actor: string;
   /* actions */
   runPrioritization: () => void;
