@@ -170,7 +170,9 @@ function Dashboard() {
   ];
 
   const openExceptions = state.exceptions.filter((e) => e.status !== "RESOLVED").slice(0, 3);
+  const inFlight = k.picking + k.packing + k.qc + k.readyForDispatch;
   const displayNow = now ?? state.clock;
+
   const hour = new Date(displayNow).getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
   const liveStamp = new Date(displayNow).toLocaleString("en-US", {
