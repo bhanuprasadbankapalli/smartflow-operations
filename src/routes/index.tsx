@@ -123,11 +123,19 @@ function Dashboard() {
   const { state, role, actor, runSmartAllocation, runPrioritization, runDemoScenario } = useWms();
   const [ready, setReady] = useState(false);
   const [flowView, setFlowView] = useState<"volume" | "throughput">("volume");
+  const [now, setNow] = useState<number | null>(null);
 
   useEffect(() => {
     const id = setTimeout(() => setReady(true), 220);
     return () => clearTimeout(id);
   }, []);
+
+  useEffect(() => {
+    setNow(Date.now());
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
 
   const k = kpis(state);
   const metrics = stageMetrics(state);
